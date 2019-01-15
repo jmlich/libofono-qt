@@ -50,12 +50,12 @@ public:
     quint8 speakerVolume() const;
     quint8 microphoneVolume()const ;
 
-public slots:
+public Q_SLOTS:
     void setMuted(const bool mute);
     void setSpeakerVolume(const quint8 &spvolume);
     void setMicrophoneVolume(const quint8 &mpvolume);
 
-signals:
+Q_SIGNALS:
     void mutedChanged(const bool &muted);
     void speakerVolumeChanged(const quint8 &volume);
     void microphoneVolumeChanged(const quint8 &mvolume);
@@ -63,7 +63,7 @@ signals:
     void setSpeakerVolumeFailed();
     void setMicrophoneVolumeFailed();
 
-private slots:
+private Q_SLOTS:
     void propertyChanged(const QString& property, const QVariant& value);
     void setPropertyFailed(const QString& property);
 

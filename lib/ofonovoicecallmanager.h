@@ -64,7 +64,7 @@ public:
 
     Q_INVOKABLE QStringList getCalls() const;
 
-public slots:
+public Q_SLOTS:
     void dial(const QString &number, const QString &callerid_hide);
     void hangupAll();
     void sendTones(const QString &tonestring);
@@ -76,7 +76,7 @@ public slots:
     void createMultiparty();
     void hangupMultiparty();
 
-signals:
+Q_SIGNALS:
     void emergencyNumbersChanged(const QStringList &numbers);
     void callAdded(const QString &call);
     void callRemoved(const QString &call);
@@ -94,7 +94,7 @@ signals:
     void barringActive(const QString &type);
     void forwarded(const QString &type);
 
-private slots:
+private Q_SLOTS:
     void validityChanged(bool);
     void pathChanged(const QString& path);
     void propertyChanged(const QString &property, const QVariant &value);

@@ -41,7 +41,7 @@ public:
     OfonoCallSettings(OfonoModem::SelectionSetting modemSetting, const QString &modemPath, QObject *parent=0);
     ~OfonoCallSettings();
 
-public slots:
+public Q_SLOTS:
     /* Properties */
     void requestCallingLinePresentation();
     void requestCalledLinePresentation();
@@ -54,7 +54,7 @@ public slots:
     void requestVoiceCallWaiting();
     void setVoiceCallWaiting(const QString &setting);
     
-signals:
+Q_SIGNALS:
     void callingLinePresentationComplete(bool success, const QString &setting);
     void calledLinePresentationComplete(bool success, const QString &setting);
     void callingNamePresentationComplete(bool success, const QString &setting);
@@ -76,7 +76,7 @@ signals:
     void setHideCallerIdFailed();
     void setVoiceCallWaitingFailed();
 
-private slots:
+private Q_SLOTS:
     void propertyChanged(const QString& property, const QVariant& value);
     void setPropertyFailed(const QString& property);
     void requestPropertyComplete(bool success, const QString& property, const QVariant& value);      

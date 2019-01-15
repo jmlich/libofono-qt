@@ -44,14 +44,14 @@ public:
     //! Returns a list of d-bus object paths that represent available modems
     Q_INVOKABLE QStringList modems() const;
 
-signals:
+Q_SIGNALS:
     //! Issued when a modem has been added
     void modemAdded(const QString &modemPath);
     
     //! Issued when a modem has been removed
     void modemRemoved(const QString &modemPath);
 
-private slots:
+private Q_SLOTS:
     void onModemAdded(const QDBusObjectPath &path, const QVariantMap &map);
     void onModemRemoved(const QDBusObjectPath &path);
 

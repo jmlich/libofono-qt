@@ -95,7 +95,7 @@ public:
     QVariantMap settings() const;
     QVariantMap IPv6Settings() const;
 
-public slots:
+public Q_SLOTS:
     void setActive(const bool);
     void setAccessPointName(const QString&);
     void setType(const QString&);
@@ -106,7 +106,7 @@ public slots:
     void setMessageProxy(const QString&);
     void setMessageCenter(const QString&);
 
-signals:
+Q_SIGNALS:
     void activeChanged(const bool);
     void accessPointNameChanged(const QString &apn);
     void nameChanged(const QString &name);
@@ -131,7 +131,7 @@ signals:
     void settingsChanged(const QVariantMap&);
     void IPv6SettingsChanged(const QVariantMap&);
 
-private slots:
+private Q_SLOTS:
     void propertyChanged(const QString &property, const QVariant &value);
     void setPropertyFailed(const QString& property);
 

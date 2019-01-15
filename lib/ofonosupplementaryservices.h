@@ -48,12 +48,12 @@ public:
     /* Properties */
     QString state() const;
 
-public slots:    
+public Q_SLOTS:    
     void initiate(const QString &command);
     void respond(const QString &reply);
     void cancel();
     
-signals:
+Q_SIGNALS:
     void notificationReceived(const QString &message);
     void requestReceived(const QString &message);
 
@@ -71,7 +71,7 @@ signals:
     void respondComplete(bool success, const QString &message);
     void cancelComplete(bool success);
     
-private slots:
+private Q_SLOTS:
     void pathChanged(const QString& path);
     void propertyChanged(const QString& property, const QVariant& value);
     void initiateResp(QString message, QDBusVariant details);

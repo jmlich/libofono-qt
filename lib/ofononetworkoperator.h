@@ -86,10 +86,10 @@ public:
     QStringList technologies() const;
     QString additionalInfo() const;
 
-public slots:
+public Q_SLOTS:
     void registerOp();
     
-signals:
+Q_SIGNALS:
     void registerComplete(bool success);
     
     void nameChanged(const QString &name);
@@ -101,7 +101,7 @@ signals:
 
 private:
 
-private slots:
+private Q_SLOTS:
     void propertyChanged(const QString& property, const QVariant& value);
     
     void registerResp();

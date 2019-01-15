@@ -74,10 +74,10 @@ public:
 
     QString state() const;
 
-signals:
+Q_SIGNALS:
     void stateChanged(const QString &state);
 
-private slots:
+private Q_SLOTS:
     void propertyChanged(const QString &property, const QVariant &value);
 
 private:

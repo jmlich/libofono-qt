@@ -77,7 +77,7 @@ public:
     bool fixedDialing() const;
     bool barredDialing() const;
 
-public slots:
+public Q_SLOTS:
     void changePin(const QString &pintype, const QString &oldpin, const QString &newpin);
     void enterPin(const QString &pintype, const QString &pin);
     void resetPin(const QString &pintype, const QString &puk, const QString &newpin);
@@ -87,7 +87,7 @@ public slots:
 
     void setSubscriberNumbers(const QStringList &numbers);
 
-signals:
+Q_SIGNALS:
     void presenceChanged(bool ispresent);
     void subscriberIdentityChanged(const QString &imsi);
     void mobileCountryCodeChanged(const QString &mcc);
@@ -110,7 +110,7 @@ signals:
     void unlockPinComplete(bool success);
     void getIconComplete(bool success, const QByteArray &icon);
 
-private slots:
+private Q_SLOTS:
     void propertyChanged(const QString& property, const QVariant& value);
     void setPropertyFailed(const QString& property);    
 

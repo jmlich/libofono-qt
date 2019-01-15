@@ -67,14 +67,14 @@ public:
     bool roamingAllowed() const;
     bool powered() const;
 
-public slots:
+public Q_SLOTS:
     void setPowered(const bool);
     void setRoamingAllowed(const bool);
     void deactivateAll();
     void addContext(const QString& type);
     void removeContext(const QString& path);
 
-signals:
+Q_SIGNALS:
     void attachedChanged(const bool value);
     void bearerChanged(const QString &bearer);
     void suspendedChanged(const bool suspnd);
@@ -90,7 +90,7 @@ signals:
     void setPoweredFailed();
     void setRoamingAllowedFailed();
 
-private slots:
+private Q_SLOTS:
     void validityChanged(bool);
     void pathChanged(const QString& path);
     void propertyChanged(const QString& property, const QVariant& value);

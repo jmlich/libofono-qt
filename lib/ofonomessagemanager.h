@@ -53,7 +53,7 @@ public:
     ~OfonoMessageManager();
 
     Q_INVOKABLE QStringList getMessages() const;
-public slots:
+public Q_SLOTS:
     /* Properties */
     void requestServiceCenterAddress();
     void setServiceCenterAddress(QString address);
@@ -66,7 +66,7 @@ public slots:
 
     void sendMessage(const QString &to, const QString &message);
 
-signals:
+Q_SIGNALS:
     void serviceCenterAddressChanged(const QString &address);
     void useDeliveryReportsChanged(const bool &useDeliveryReports);
     void bearerChanged(const QString &bearer);
@@ -88,7 +88,7 @@ signals:
     void immediateMessage(const QString &message, const QVariantMap &info);
     void incomingMessage(const QString &message, const QVariantMap &info);
 
-private slots:
+private Q_SLOTS:
     void validityChanged(bool);
     void pathChanged(const QString& path);
     void propertyChanged(const QString &property, const QVariant &value);

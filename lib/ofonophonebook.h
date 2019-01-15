@@ -45,13 +45,13 @@ public:
 
     ~OfonoPhonebook();
 
-public slots:
+public Q_SLOTS:
     void import();
 
-signals:
+Q_SIGNALS:
     void importComplete(bool success, const QString &entries);
 
-private slots:
+private Q_SLOTS:
     void importResp(const QString &entries);
     void importErr(const QDBusError &error);
 

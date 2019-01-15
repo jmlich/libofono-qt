@@ -42,7 +42,7 @@ public:
     OfonoCallBarring(OfonoModem::SelectionSetting modemSetting, const QString &modemPath, QObject *parent=0);
     ~OfonoCallBarring();
 
-public slots:
+public Q_SLOTS:
     /* Properties */
     void requestVoiceIncoming();
     void setVoiceIncoming(const QString &barrings, const QString &password);
@@ -55,7 +55,7 @@ public slots:
     void disableAllIncoming(const QString &password);
     void disableAllOutgoing(const QString &password);
 
-signals:
+Q_SIGNALS:
     void voiceIncomingComplete(bool success, const QString &barrings);
     void voiceOutgoingComplete(bool success, const QString &barrings);
     void voiceIncomingChanged(const QString &barrings);
@@ -68,7 +68,7 @@ signals:
     void disableAllIncomingComplete(bool success);
     void disableAllOutgoingComplete(bool success);
 
-private slots:
+private Q_SLOTS:
     void pathChanged(const QString& path);
     void propertyChanged(const QString& property, const QVariant& value);
     void setPropertyFailed(const QString& property);

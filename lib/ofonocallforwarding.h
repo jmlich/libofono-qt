@@ -42,7 +42,7 @@ public:
     OfonoCallForwarding(OfonoModem::SelectionSetting modemSetting, const QString &modemPath, QObject *parent=0);
     ~OfonoCallForwarding();
 
-public slots:
+public Q_SLOTS:
     /* Properties */
     void requestVoiceUnconditional(); /* "" | phonenumber */
     void setVoiceUnconditional(const QString &property); 
@@ -59,7 +59,7 @@ public slots:
     /* Methods */
     void disableAll(const QString &type); /* "all" | "conditional" */
     
-signals:
+Q_SIGNALS:
     void voiceUnconditionalComplete(bool success, const QString &property);
     void voiceBusyComplete(bool success, const QString &property);
     void voiceNoReplyComplete(bool success, const QString &property);
@@ -82,7 +82,7 @@ signals:
 
     void disableAllComplete(bool success); 
 
-private slots:
+private Q_SLOTS:
     void propertyChanged(const QString& property, const QVariant& value);
     void setPropertyFailed(const QString& property);
     void requestPropertyComplete(bool success, const QString& property, const QVariant& value);

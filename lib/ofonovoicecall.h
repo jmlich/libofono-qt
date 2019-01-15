@@ -92,12 +92,12 @@ public:
     bool remoteHeld() const;
     bool remoteMultiparty() const;
 
-public slots:
+public Q_SLOTS:
     void answer();
     void hangup();
     void deflect(const QString &number);
 
-signals:
+Q_SIGNALS:
     void answerComplete(bool status);
     void hangupComplete(bool status);
     void deflectComplete(bool status);
@@ -114,7 +114,7 @@ signals:
     void remoteHeldChanged(const bool remoteHeld);
     void remoteMultipartyChanged(const bool remoteMultiparty);
 
-private slots:
+private Q_SLOTS:
     void propertyChanged(const QString &property, const QVariant &value);
     void answerResp();
     void answerErr(const QDBusError &error);

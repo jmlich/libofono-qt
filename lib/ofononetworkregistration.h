@@ -75,12 +75,12 @@ public:
     uint strength() const;
     QString baseStation() const;
 
-public slots:    
+public Q_SLOTS:    
     void registerOp();
     void getOperators();
     void scan();
     
-signals:
+Q_SIGNALS:
     void modeChanged(const QString &mode);
     void statusChanged(const QString &status);
     void locationAreaCodeChanged(uint locationAreaCode);
@@ -96,7 +96,7 @@ signals:
     void getOperatorsComplete(bool success, const QStringList &operatorIds);
     void scanComplete(bool success, const QStringList &operatorIds);
 
-private slots:
+private Q_SLOTS:
     void propertyChanged(const QString& property, const QVariant& value);
     void registerResp();
     void registerErr(QDBusError error);

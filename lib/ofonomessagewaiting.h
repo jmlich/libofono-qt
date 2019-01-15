@@ -48,17 +48,17 @@ public:
     bool voicemailWaiting() const;
     int voicemailMessageCount() const;
     QString voicemailMailboxNumber() const;
-public slots:
+public Q_SLOTS:
     void setVoicemailMailboxNumber(QString mailboxnumber);
 
-signals:
+Q_SIGNALS:
     void voicemailWaitingChanged(bool waiting);
     void voicemailMessageCountChanged(int count);
     void voicemailMailboxNumberChanged(const QString &mailboxnumber);
 
     void setVoicemailMailboxNumberFailed();
     
-private slots:
+private Q_SLOTS:
     void propertyChanged(const QString& property, const QVariant& value);
     void setPropertyFailed(const QString& property);    
 };

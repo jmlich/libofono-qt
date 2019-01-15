@@ -119,12 +119,12 @@ public:
     QStringList features() const;
     QStringList interfaces() const;
 
-public slots:
+public Q_SLOTS:
     void setPowered(bool powered);
     void setOnline(bool online);
     void setLockdown(bool lockdown);
 
-signals:
+Q_SIGNALS:
     //! Issued when a modem becomes unavailable or available again
     void validityChanged(bool validity);
     //! Issued when the object has switched to another modem
@@ -149,7 +149,7 @@ signals:
     void interfacesChanged(const QStringList &interfaces);
 
 
-private slots:
+private Q_SLOTS:
     void propertyChanged(const QString &property, const QVariant &value);
     void setPropertyFailed(const QString& property);
     void modemAdded(const QString &modem);

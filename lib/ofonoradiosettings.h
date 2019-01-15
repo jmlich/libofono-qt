@@ -50,13 +50,13 @@ public:
     QString gsmBand() const;
     QString umtsBand() const;
     bool fastDormancy() const;
-public slots:
+public Q_SLOTS:
     void setTechnologyPreference(QString preference);
     void setGsmBand(QString gsmBand);
     void setUmtsBand(QString umtsBand);
     void setFastDormancy(bool fastDormancy);
 
-signals:
+Q_SIGNALS:
     void technologyPreferenceChanged(const QString &preference);
     void setTechnologyPreferenceFailed();
     void gsmBandChanged(const QString &gsmBand);
@@ -66,7 +66,7 @@ signals:
     void fastDormancyChanged(bool fastDormancy);
     void setFastDormancyFailed();
         
-private slots:
+private Q_SLOTS:
     void propertyChanged(const QString& property, const QVariant& value);
     void setPropertyFailed(const QString& property);    
 };

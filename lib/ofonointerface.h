@@ -94,7 +94,7 @@ public:
      */
     QString errorMessage() const {return m_errorMessage;}
 
-public slots:
+public Q_SLOTS:
     //! Changes the interface path
     /*!
      * This method changes the D-Bus path to the interface.
@@ -106,7 +106,7 @@ public slots:
     //! Sets the last error explicitly
     void setError(const QString &errorName, const QString &errorMessage);
 
-signals:
+Q_SIGNALS:
     //! Issued when a property has changed
     /*!
      * \param name name of the property
@@ -128,13 +128,13 @@ signals:
      */
     void setPropertyFailed(const QString &name);
 
-private slots:
+private Q_SLOTS:
     void onPropertyChanged(QString property, QDBusVariant value);
     void getPropertiesAsyncResp(QVariantMap properties);
     void getPropertiesAsyncErr(const QDBusError&);
     void setPropertyResp();
     void setPropertyErr(const QDBusError& error);
-protected slots:
+protected Q_SLOTS:
 private:
     QVariantMap getAllPropertiesSync();
     

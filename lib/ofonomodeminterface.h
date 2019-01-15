@@ -89,7 +89,7 @@ public:
      */
     QString errorMessage() const;
 
-signals:
+Q_SIGNALS:
     //! Interface validity has changed
     /*!
      * This may mean that modem has become unavailable
@@ -102,7 +102,7 @@ private:
     bool checkValidity();
     void updateValidity();
 
-private slots:
+private Q_SLOTS:
     void modemValidityChanged(bool validity);
     void interfacesChanged(const QStringList &interfaces);
 
