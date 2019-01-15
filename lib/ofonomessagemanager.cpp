@@ -175,7 +175,7 @@ void OfonoMessageManager::setAlphabet(QString alphabet)
 }
 
 
-QDBusObjectPath OfonoMessageManager::sendMessage(const QString &to, const QString &message)
+QDBusObjectPath OfonoMessageManager::sendMessage(const QString &to, const QString &message, bool &success)
 {
     QDBusMessage request;
     QDBusReply<QDBusObjectPath> reply;
@@ -188,6 +188,10 @@ QDBusObjectPath OfonoMessageManager::sendMessage(const QString &to, const QStrin
     reply = QDBusConnection::systemBus().call(request);
     if (reply.isValid()) {
         objpath = reply;
+        success = true;
+    } else {
+        m_if->setError(reply.error().name(), reply.error().message());
+        success = false;
     }
     return objpath;
 }

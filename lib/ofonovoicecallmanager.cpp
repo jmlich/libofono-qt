@@ -139,7 +139,7 @@ void OfonoVoiceCallManager::connectDbusSignals(const QString& path)
                                         SIGNAL(forwarded(const QString&)));
 }
 
-QDBusObjectPath OfonoVoiceCallManager::dial(const QString &number, const QString &callerid_hide)
+QDBusObjectPath OfonoVoiceCallManager::dial(const QString &number, const QString &callerid_hide, bool &success)
 {
     QDBusMessage request;
     QDBusReply<QDBusObjectPath> reply;
@@ -155,6 +155,10 @@ QDBusObjectPath OfonoVoiceCallManager::dial(const QString &number, const QString
     reply = QDBusConnection::systemBus().call(request);
     if (reply.isValid()) {
         objpath = reply;
+        success = true;
+    } else {
+        m_if->setError(reply.error().name(), reply.error().message());
+        success = false;
     }
     return objpath;
 }
@@ -352,17 +356,6 @@ void OfonoVoiceCallManager::swapCallsErr(const QDBusError &error)
 {
     m_if->setError(error.name(), error.message());
     emit swapCallsComplete(false);
-}
-
-void OfonoVoiceCallManager::dialResp()
-{
-    emit dialComplete(true);
-}
-
-void OfonoVoiceCallManager::dialErr(const QDBusError &error)
-{
-    m_if->setError(error.name(), error.message());
-    emit dialComplete(false);
 }
 
 void OfonoVoiceCallManager::hangupAllResp()

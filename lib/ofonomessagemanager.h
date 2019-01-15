@@ -64,7 +64,7 @@ public Q_SLOTS:
     void requestAlphabet();
     void setAlphabet(QString alphabet);
 
-    QDBusObjectPath sendMessage(const QString &to, const QString &message);
+    QDBusObjectPath sendMessage(const QString &to, const QString &message, bool &success);
 
 Q_SIGNALS:
     void serviceCenterAddressChanged(const QString &address);
@@ -76,7 +76,6 @@ Q_SIGNALS:
     void useDeliveryReportsComplete(bool success, const bool &useDeliveryReports);
     void bearerComplete(bool success, const QString &bearer);
     void alphabetComplete(bool success, const QString &alphabet);
-    void sendMessageComplete(bool success, const QString& path);
 
     void setServiceCenterAddressFailed();
     void setUseDeliveryReportsFailed();
