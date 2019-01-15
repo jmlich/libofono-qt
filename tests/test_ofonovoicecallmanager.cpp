@@ -52,11 +52,11 @@ private slots:
 
     void testOfonoVoiceCallManager()
     {
+        bool success = false;
     	QVERIFY(m->emergencyNumbers().count() > 0);
 
 	QSignalSpy emergencyNumbers(m, SIGNAL(emergencyNumbersChanged(QStringList)));
-        QSignalSpy dialreg(m,SIGNAL(dialComplete(bool)));
-        QSignalSpy dspy(m, SIGNAL(callAdded(QString)));
+        QSignalSpy dspy(m, SIGNAL(callAdded(QString, QVariantMap)));
         QSignalSpy hupreg(m,SIGNAL(hangupAllComplete(bool)));
         QSignalSpy tonereg(m,SIGNAL(sendTonesComplete(bool)));
         QSignalSpy hspy(m, SIGNAL(callRemoved(QString)));
@@ -71,11 +71,11 @@ private slots:
         QCOMPARE(emergencyNumbers.count(), 1);
         QVERIFY(emergencyNumbers.takeFirst().at(0).toStringList().count() > 0);
         //Dial testing
-        m->dial("123","");
+        QDBusObjectPath objectPath = m->dial("123","", success);
         qDebug() << "Please find a call in 'Dialing' state in phonesim window and press 'Active' button";
         QTest::qWait(15000);
-        QCOMPARE(dialreg.count(), 1);
-        QCOMPARE(dialreg.takeFirst().at(0).toBool(),true);
+        QCOMPARE(objectPath.path().isEmpty(), false);
+        QCOMPARE(success, true);
         QCOMPARE(dspy.count(), 1);
         //Tones testing
         QTest::qWait(5000);
@@ -97,17 +97,17 @@ private slots:
 
     void testoFonoVoiceCallManagerStep2()
     {
+        bool success = false;
         // test dial failure and hangup of incoming alerting call
-        QSignalSpy dialreg(m,SIGNAL(dialComplete(bool)));
         QSignalSpy hupreg(m,SIGNAL(hangupAllComplete(bool)));
-        QSignalSpy dspy(m, SIGNAL(callAdded(QString)));
+        QSignalSpy dspy(m, SIGNAL(callAdded(QString, QVariantMap)));
         QSignalSpy hspy(m, SIGNAL(callRemoved(QString)));
 
 
-        m->dial("199","");
+        QDBusObjectPath objectPath = m->dial("199","", success);
         QTest::qWait(5000);
-        QCOMPARE(dialreg.count(), 1);
-        QCOMPARE(dialreg.takeFirst().at(0).toBool(),false);
+        QCOMPARE(objectPath.path().isEmpty(), false);
+        QCOMPARE(success, false);
         QTest::qWait(10000);
         QCOMPARE(dspy.count(), 1);
 

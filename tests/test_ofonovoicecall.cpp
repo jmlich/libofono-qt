@@ -51,17 +51,17 @@ private slots:
 
     void testOfonoVoiceCall()
     {
-        QSignalSpy dialreg(m,SIGNAL(dialComplete(bool)));
-        QSignalSpy dspy(m, SIGNAL(callAdded(QString)));
+        bool success = false;
+        QSignalSpy dspy(m, SIGNAL(callAdded(QString, QVariantMap)));
 
         // Dial and hangup
-        m->dial("123","");
+        QDBusObjectPath objectPath = m->dial("123","", success);
         QTest::qWait(1000);
 
-        QCOMPARE(dialreg.count(), 1);
-        QCOMPARE(dialreg.takeFirst().at(0).toBool(),true);
+        QCOMPARE(objectPath.path().isEmpty(), false);
+        QCOMPARE(success,true);
         QCOMPARE(dspy.count(), 1);
-        QString callid = dspy.takeFirst().at(0).toString();
+        QString callid = objectPath.path();
 
         OfonoVoiceCall* call = new OfonoVoiceCall(callid);
 
@@ -106,10 +106,11 @@ private slots:
 
     void testOfonoVoiceCallStep2()
     {
+        bool success = false;
         //Dial failure, incoming, answer and local hangup
-        QSignalSpy callsignal(m, SIGNAL(callAdded(const QString)));
+        QSignalSpy callsignal(m, SIGNAL(callAdded(const QString, QVariantMap)));
 
-        m->dial("199","");
+        QDBusObjectPath objectPath = m->dial("199","", success);
         QTest::qWait(8000);
 
         QCOMPARE(callsignal.count(),1);
@@ -158,10 +159,11 @@ private slots:
 
     void testOfonoVoiceCallStep3()
     {
+        bool success = false;
         //Dial failed, incoming, no answer and state change to disconnect
-        QSignalSpy callsignal(m, SIGNAL(callAdded(const QString)));
+        QSignalSpy callsignal(m, SIGNAL(callAdded(const QString, QVariantMap)));
 
-        m->dial("177","");
+        QDBusObjectPath objectPath = m->dial("177","", success);
         QTest::qWait(3000);
 
         QCOMPARE(callsignal.count(),1);
@@ -182,9 +184,10 @@ private slots:
     }
     void testOfonoVoiceCallStep4()
     {
+        bool success = false;
         //Deflect
-        QSignalSpy callsignal(m, SIGNAL(callAdded(const QString)));
-        m->dial("199","");
+        QSignalSpy callsignal(m, SIGNAL(callAdded(const QString, QVariantMap)));
+        QDBusObjectPath objectPath = m->dial("199","", success);
         QTest::qWait(8000);
 
         QCOMPARE(callsignal.count(),1);

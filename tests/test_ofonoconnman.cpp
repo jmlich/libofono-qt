@@ -52,6 +52,7 @@ private slots:
 
     void testOfonoConnMan()
     {
+        bool addContextSuccess = false;
         QSignalSpy attch(m, SIGNAL(attachedChanged(const bool)));
         QSignalSpy sus(m,SIGNAL(suspendedChanged(const bool)));
         QSignalSpy ber(m, SIGNAL(bearerChanged(const QString&)));
@@ -59,7 +60,6 @@ private slots:
         QSignalSpy pow(m,SIGNAL(poweredChanged(const bool)));
         QSignalSpy add(m, SIGNAL(contextAdded(const QString&)));
         QSignalSpy rem(m, SIGNAL(contextRemoved(const QString&)));
-        QSignalSpy cadd(m,SIGNAL(addContextComplete(bool, const QString&)));
         QSignalSpy crem(m,SIGNAL(removeContextComplete(bool)));
         QSignalSpy deact(m,SIGNAL(deactivateAllComplete(bool)));
 
@@ -71,19 +71,19 @@ private slots:
         QTest::qWait(5000);
         m->setRoamingAllowed(true);
         QTest::qWait(5000);
-        m->addContext(QString("internet"));
+        QDBusObjectPath objectPath = m->addContext(QString("internet"), addContextSuccess);
         QTest::qWait(10000);
         QCOMPARE(m->powered(),true);
         QCOMPARE(m->attached(),true);
         QCOMPARE(m->suspended(),false);
         QCOMPARE(m->roamingAllowed(),true);
 
-        QCOMPARE(cadd.count(), 1);
+        QCOMPARE(addContextSuccess, true);
         QCOMPARE(pow.count(), 2);
         QCOMPARE(roam.count(), 2);
         QCOMPARE(add.count(), 1);
         QString path = add.takeFirst().at(0).toString();
-        QString path2 = cadd.takeFirst().at(1).toString();
+        QString path2 = objectPath.path();
 	QCOMPARE(path, path2);
         m->removeContext(path);
         QTest::qWait(10000);

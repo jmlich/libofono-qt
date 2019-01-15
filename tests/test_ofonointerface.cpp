@@ -98,12 +98,13 @@ private slots:
         QVariantList list;
         bool online;
         bool online_found;
+        int lastSignalCount = -1;
     
         oi->setProperty("Online", qVariantFromValue(false));
-        while (spy_changed.count() != 3 && spy_failed.count() == 0) {
-            QTest::qWait(100);
+        while (spy_failed.count() == 0 && spy_changed.count() != lastSignalCount) {
+            lastSignalCount = spy_changed.count();
+            QTest::qWait(1000);
         }
-        QCOMPARE(spy_changed.count(), 3);
         QCOMPARE(spy_failed.count(), 0);
         online = false;
         online_found = false;
@@ -116,12 +117,16 @@ private slots:
         }
         QCOMPARE(online_found, true);
         QCOMPARE(online, false);
-        
+
         oi->setProperty("Online", qVariantFromValue(true));
-        while (spy_changed.count() < 3 && spy_failed.count() == 0) {
-            QTest::qWait(100);
+
+        lastSignalCount = -1;
+        while (spy_failed.count() == 0 && spy_changed.count() != lastSignalCount) {
+            lastSignalCount = spy_changed.count();
+            QTest::qWait(1000);
         }
-        QVERIFY(spy_changed.count() > 3);
+
+        qDebug() << lastSignalCount;
         QCOMPARE(spy_failed.count(), 0);
         online = false;
         online_found = false;

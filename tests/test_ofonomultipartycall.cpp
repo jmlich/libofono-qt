@@ -68,10 +68,10 @@ private slots:
         // 12. Hangup all calls
 
 	QVariantList variantList;
+        bool success = true;
 
         // VoiceCallManager Spy's
-        QSignalSpy dialreg(m,SIGNAL(dialComplete(bool)));
-        QSignalSpy dspy(m, SIGNAL(callAdded(QString)));
+        QSignalSpy dspy(m, SIGNAL(callAdded(QString, QVariantMap)));
         QSignalSpy rspy(m, SIGNAL(callRemoved(QString)));
         QSignalSpy haspy(m, SIGNAL(hangupAllComplete(bool)));
         QSignalSpy haaspy(m, SIGNAL(holdAndAnswerComplete(bool)));
@@ -81,11 +81,10 @@ private slots:
         QSignalSpy pcspy(m, SIGNAL(privateChatComplete(bool, QStringList)));
 
         // 1. Dial a call (outgoing)
-        m->dial("123","");
+        QDBusObjectPath objectPath = m->dial("123","", success);
         QTest::qWait(1000);
 
-        QCOMPARE(dialreg.count(), 1);
-        QCOMPARE(dialreg.takeFirst().at(0).toBool(),true);
+        QCOMPARE(success, true);
         QCOMPARE(dspy.count(), 1);
         QString c1id = dspy.takeFirst().at(0).toString();
 
@@ -122,11 +121,10 @@ private slots:
 
         // 2. Receive a call
         //    - dial "199" to trigger phonesim callback
-        m->dial("199","");
+        objectPath = m->dial("199","", success);
         QTest::qWait(8000);
 
-        QCOMPARE(dialreg.count(), 1);
-        QCOMPARE(dialreg.takeFirst().at(0).toBool(),false);
+        QCOMPARE(success,false);
         QCOMPARE(dspy.count(),1);
         QString c2id = dspy.takeFirst().at(0).toString();
 
@@ -207,11 +205,10 @@ private slots:
         QCOMPARE(c2->state(),QString("held"));
 
         // 6. Dial a 3rd call
-        m->dial("456","");
+        objectPath = m->dial("456","", success);
         QTest::qWait(1000);
 
-        QCOMPARE(dialreg.count(), 1);
-        QCOMPARE(dialreg.takeFirst().at(0).toBool(),true);
+        QCOMPARE(success, true);
         QCOMPARE(dspy.count(), 1);
         QString c3id = dspy.takeFirst().at(0).toString();
 
