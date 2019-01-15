@@ -41,8 +41,7 @@ OfonoModem::OfonoModem(SelectionSetting setting, const QString &modemPath, QObje
     if (setting == AutomaticSelect)
         finalModemPath = m_mm->modems().value(0);
     else if (setting == ManualSelect)
-        if (m_mm->modems().contains(modemPath))
-            finalModemPath = modemPath;
+        finalModemPath = modemPath;
     
     if (finalModemPath.isEmpty()) {
         finalModemPath = "/";
@@ -122,8 +121,6 @@ void OfonoModem::modemsChanged()
             }
             m_if->setPath(modemPath);
             emit pathChanged(modemPath);
-        } else if (m_selectionSetting == ManualSelect) {
-            m_if->setPath("/");
         }
     }
     // validity has changed
