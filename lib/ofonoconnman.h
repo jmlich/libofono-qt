@@ -71,7 +71,7 @@ public Q_SLOTS:
     void setPowered(const bool);
     void setRoamingAllowed(const bool);
     void deactivateAll();
-    void addContext(const QString& type);
+    QDBusObjectPath addContext(const QString& type, bool &success);
     void removeContext(const QString& path);
 
 Q_SIGNALS:

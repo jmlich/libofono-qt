@@ -146,9 +146,11 @@ void OfonoConnMan::deactivateAllErr(const QDBusError& error)
     emit deactivateAllComplete(false);
 }
 
-void OfonoConnMan::addContext(const QString& type)
+QDBusObjectPath OfonoConnMan::addContext(const QString& type, bool &success)
 {
     QDBusMessage request;
+    QDBusReply<QDBusObjectPath> reply;
+    QDBusObjectPath objpath;
 
     request = QDBusMessage::createMethodCall("org.ofono",
 					     path(), m_if->ifname(),
@@ -158,10 +160,15 @@ void OfonoConnMan::addContext(const QString& type)
     arg.append(QVariant(type));
     request.setArguments(arg);
 
-    QDBusConnection::systemBus().callWithCallback(request, this,
-                                        SLOT(addContextResp(const QDBusObjectPath &)),
-                                        SLOT(addContextErr(const QDBusError&)),
-                                        ADD_TIMEOUT);
+    reply = QDBusConnection::systemBus().call(request);
+    if (reply.isValid()) {
+        objpath = reply;
+        success = true;
+    } else {
+        m_if->setError(reply.error().name(), reply.error().message());
+        success = false;
+    }
+    return objpath;
 }
 
 void OfonoConnMan::addContextResp(const QDBusObjectPath &path)
