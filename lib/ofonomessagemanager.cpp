@@ -115,6 +115,10 @@ void OfonoMessageManager::connectDbusSignals(const QString& path)
                                          "ImmediateMessage",
                                          this,
                                          SIGNAL(immediateMessage(QString, QVariantMap)));
+    QDBusConnection::systemBus().disconnect("org.ofono", QString(), m_if->ifname(),
+                                         "StatusReport",
+                                         this,
+                                         SIGNAL(statusReport(QString, QVariantMap)));
 
     QDBusConnection::systemBus().connect("org.ofono", path, m_if->ifname(),
                                          "MessageAdded",
@@ -132,6 +136,10 @@ void OfonoMessageManager::connectDbusSignals(const QString& path)
                                          "ImmediateMessage",
                                          this,
                                          SIGNAL(immediateMessage(QString, QVariantMap)));
+    QDBusConnection::systemBus().connect("org.ofono", path, m_if->ifname(),
+                                         "StatusReport",
+                                         this,
+                                         SIGNAL(statusReport(QString, QVariantMap)));
 }
 
 void OfonoMessageManager::requestServiceCenterAddress()
