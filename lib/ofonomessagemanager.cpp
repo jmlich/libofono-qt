@@ -179,21 +179,17 @@ QDBusObjectPath OfonoMessageManager::sendMessage(const QString &to, const QStrin
 {
     QDBusMessage request;
     QDBusReply<QDBusObjectPath> reply;
-    QDBusObjectPath objpath;
 
     request = QDBusMessage::createMethodCall("org.ofono",
                                              path(), m_if->ifname(),
                                              "SendMessage");
     request << to << message;
     reply = QDBusConnection::systemBus().call(request);
-    if (reply.isValid()) {
-        objpath = reply;
-        success = true;
-    } else {
+    success = reply.isValid();
+    if (!success) {
         m_if->setError(reply.error().name(), reply.error().message());
-        success = false;
     }
-    return objpath;
+    return reply;
 }
 
 void OfonoMessageManager::requestPropertyComplete(bool success, const QString& property, const QVariant& value)

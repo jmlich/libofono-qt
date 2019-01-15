@@ -150,7 +150,6 @@ QDBusObjectPath OfonoConnMan::addContext(const QString& type, bool &success)
 {
     QDBusMessage request;
     QDBusReply<QDBusObjectPath> reply;
-    QDBusObjectPath objpath;
 
     request = QDBusMessage::createMethodCall("org.ofono",
 					     path(), m_if->ifname(),
@@ -161,14 +160,11 @@ QDBusObjectPath OfonoConnMan::addContext(const QString& type, bool &success)
     request.setArguments(arg);
 
     reply = QDBusConnection::systemBus().call(request);
-    if (reply.isValid()) {
-        objpath = reply;
-        success = true;
-    } else {
+    success = reply.isValid();
+    if (!success) {
         m_if->setError(reply.error().name(), reply.error().message());
-        success = false;
     }
-    return objpath;
+    return reply;
 }
 
 void OfonoConnMan::addContextResp(const QDBusObjectPath &path)
