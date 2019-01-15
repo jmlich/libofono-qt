@@ -175,19 +175,21 @@ void OfonoMessageManager::setAlphabet(QString alphabet)
 }
 
 
-void OfonoMessageManager::sendMessage(const QString &to, const QString &message)
+QDBusObjectPath OfonoMessageManager::sendMessage(const QString &to, const QString &message)
 {
     QDBusMessage request;
+    QDBusReply<QDBusObjectPath> reply;
+    QDBusObjectPath objpath;
 
     request = QDBusMessage::createMethodCall("org.ofono",
                                              path(), m_if->ifname(),
                                              "SendMessage");
-
     request << to << message;
-
-    QDBusConnection::systemBus().callWithCallback(request, this,
-                                        SLOT(sendMessageResp(const QDBusObjectPath&)),
-                                        SLOT(sendMessageErr(const QDBusError&)));
+    reply = QDBusConnection::systemBus().call(request);
+    if (reply.isValid()) {
+        objpath = reply;
+    }
+    return objpath;
 }
 
 void OfonoMessageManager::requestPropertyComplete(bool success, const QString& property, const QVariant& value)
@@ -227,17 +229,6 @@ void OfonoMessageManager::setPropertyFailed(const QString& property)
     } else if (property == "Alphabet") {
         emit setAlphabetFailed();
     }
-}
-
-void OfonoMessageManager::sendMessageResp(const QDBusObjectPath& objectPath)
-{
-    emit sendMessageComplete(true, objectPath.path());
-}
-
-void OfonoMessageManager::sendMessageErr(QDBusError error)
-{
-    m_if->setError(error.name(), error.message());
-    emit sendMessageComplete(false, QString());
 }
 
 QStringList OfonoMessageManager::getMessages() const

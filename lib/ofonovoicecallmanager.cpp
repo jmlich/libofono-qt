@@ -139,9 +139,11 @@ void OfonoVoiceCallManager::connectDbusSignals(const QString& path)
                                         SIGNAL(forwarded(const QString&)));
 }
 
-void OfonoVoiceCallManager::dial(const QString &number, const QString &callerid_hide)
+QDBusObjectPath OfonoVoiceCallManager::dial(const QString &number, const QString &callerid_hide)
 {
     QDBusMessage request;
+    QDBusReply<QDBusObjectPath> reply;
+    QDBusObjectPath objpath;
     request = QDBusMessage::createMethodCall("org.ofono",
                                              path(), m_if->ifname(),
                                              "Dial");
@@ -149,10 +151,12 @@ void OfonoVoiceCallManager::dial(const QString &number, const QString &callerid_
     arg.append(QVariant(number));
     arg.append(QVariant(callerid_hide));
     request.setArguments(arg);
-    QDBusConnection::systemBus().callWithCallback(request, this,
-                                        SLOT(dialResp()),
-                                        SLOT(dialErr(const QDBusError&)),
-                                        DIAL_TIMEOUT);
+
+    reply = QDBusConnection::systemBus().call(request);
+    if (reply.isValid()) {
+        objpath = reply;
+    }
+    return objpath;
 }
 
 void OfonoVoiceCallManager::hangupAll()
@@ -410,10 +414,10 @@ QStringList OfonoVoiceCallManager::getCalls() const
     return m_calllist;
 }
 
-void OfonoVoiceCallManager::callAddedChanged(const QDBusObjectPath &path, const QVariantMap& /*values*/)
+void OfonoVoiceCallManager::callAddedChanged(const QDBusObjectPath &path, const QVariantMap& values)
 {
     m_calllist << path.path();
-    emit callAdded(path.path());
+    emit callAdded(path.path(), values);
 }
 
 void OfonoVoiceCallManager::callRemovedChanged(const QDBusObjectPath &path)

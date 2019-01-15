@@ -64,7 +64,7 @@ public Q_SLOTS:
     void requestAlphabet();
     void setAlphabet(QString alphabet);
 
-    void sendMessage(const QString &to, const QString &message);
+    QDBusObjectPath sendMessage(const QString &to, const QString &message);
 
 Q_SIGNALS:
     void serviceCenterAddressChanged(const QString &address);
@@ -96,8 +96,6 @@ private Q_SLOTS:
     void requestPropertyComplete(bool success, const QString &property, const QVariant &value);
     void onMessageAdded(const QDBusObjectPath &message, const QVariantMap &properties);
     void onMessageRemoved(const QDBusObjectPath &message);
-    void sendMessageResp(const QDBusObjectPath& objectPath);
-    void sendMessageErr(QDBusError error);
 
 private:
     QStringList getMessageList();

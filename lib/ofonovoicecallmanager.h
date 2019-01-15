@@ -65,7 +65,7 @@ public:
     Q_INVOKABLE QStringList getCalls() const;
 
 public Q_SLOTS:
-    void dial(const QString &number, const QString &callerid_hide);
+    QDBusObjectPath dial(const QString &number, const QString &callerid_hide);
     void hangupAll();
     void sendTones(const QString &tonestring);
     void transfer();
@@ -78,7 +78,7 @@ public Q_SLOTS:
 
 Q_SIGNALS:
     void emergencyNumbersChanged(const QStringList &numbers);
-    void callAdded(const QString &call);
+    void callAdded(const QString &call, const QVariantMap &values);
     void callRemoved(const QString &call);
     void dialComplete(const bool status);
     void hangupAllComplete(const bool status);
@@ -98,7 +98,7 @@ private Q_SLOTS:
     void validityChanged(bool);
     void pathChanged(const QString& path);
     void propertyChanged(const QString &property, const QVariant &value);
-    void callAddedChanged(const QDBusObjectPath &call, const QVariantMap &properties);
+    void callAddedChanged(const QDBusObjectPath &call, const QVariantMap &values);
     void callRemovedChanged(const QDBusObjectPath &call);
     void dialResp();
     void dialErr(const QDBusError &error);
