@@ -256,17 +256,23 @@ void OfonoVoiceCallManager::privateChat(const QString &call)
                                         PRIVATE_CHAT_TIMEOUT);
 }
 
-void OfonoVoiceCallManager::createMultiparty()
+QList<QDBusObjectPath> OfonoVoiceCallManager::createMultiparty()
 {
     QDBusMessage request;
+    QDBusReply<QList<QDBusObjectPath> > reply;
     request = QDBusMessage::createMethodCall("org.ofono",
                                              path(), m_if->ifname(),
                                              "CreateMultiparty");
 
-    QDBusConnection::systemBus().callWithCallback(request, this,
-                                        SLOT(createMultipartyResp(const QList<QDBusObjectPath>&)),
-                                        SLOT(createMultipartyErr(const QDBusError&)),
-                                        CREATE_MULTIPARTY_TIMEOUT);
+    request = QDBusMessage::createMethodCall("org.ofono",
+                                             path(), m_if->ifname(),
+                                             "CreateMultiparty");
+    reply = QDBusConnection::systemBus().call(request);
+    bool success = reply.isValid();
+    if (!success) {
+        m_if->setError(reply.error().name(), reply.error().message());
+    }
+    return reply;
 }
 
 void OfonoVoiceCallManager::hangupMultiparty()
