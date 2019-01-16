@@ -9,7 +9,7 @@ Name:       libofono-qt
 # << macros
 
 Summary:    Qt bindings for oFono
-Version:    0.53
+Version:    0.54
 Release:    1
 Group:      System/Libraries
 License:    LGPLv2.1
@@ -18,8 +18,9 @@ Source0:    %{name}-%{version}.tar.bz2
 Source100:  libofono-qt.yaml
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
-BuildRequires:  pkgconfig(QtCore)
-BuildRequires:  pkgconfig(QtDBus)
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Test)
 BuildRequires:  doxygen
 
 %description
@@ -62,7 +63,7 @@ This package contains the unit and functional tests for the oFono Qt bindings.
 # >> build pre
 # << build pre
 
-%qmake 
+%qmake5
 
 make %{?jobs:-j%jobs}
 
@@ -98,9 +99,9 @@ find %{buildroot}%{_libdir} -type f -name '*.prl' \
 %{_libdir}/%{name}.prl
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/ofono-qt.pc
-%{_includedir}/ofono-qt/%{name}_global.h
+%{_includedir}/ofono-qt/libofono-qt_global.h
 %{_includedir}/ofono-qt/ofono*.h
-%{_datadir}/qt4/mkspecs/features/ofono-qt.prf
+%{_datadir}/qt5/mkspecs/features/ofono-qt.prf
 # >> files devel
 # << files devel
 

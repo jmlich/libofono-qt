@@ -1,6 +1,6 @@
 Name: libofono-qt
 Summary: Qt bindings for oFono
-Version: 0.53
+Version: 0.54
 Release: 1
 Group: System/Libraries
 License: LGPLv2.1
@@ -13,10 +13,11 @@ Description: |
 PkgBR:
     - doxygen
 PkgConfigBR:
-    - QtCore
-    - QtDBus
+    - Qt5Core
+    - Qt5DBus
+    - Qt5Test
 Configure: none
-Builder: qmake
+Builder: qmake5
 SetupOptions: "-q -n %{name}-%{version}"
 Files:
     - "%{_libdir}/%{name}.so.*"
@@ -31,9 +32,9 @@ SubPackages:
           - "%{_libdir}/%{name}.prl"
           - "%{_libdir}/%{name}.so"
           - "%{_libdir}/pkgconfig/ofono-qt.pc"
-          - "%{_includedir}/ofono-qt/%{name}_global.h"
+          - "%{_includedir}/ofono-qt/libofono-qt_global.h"
           - "%{_includedir}/ofono-qt/ofono*.h"
-          - "%{_datadir}/qt4/mkspecs/features/ofono-qt.prf"
+          - "%{_datadir}/qt5/mkspecs/features/ofono-qt.prf"
 
     - Name: doc
       Summary: Documentation for the oFono Qt bindings
