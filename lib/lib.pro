@@ -71,7 +71,7 @@ CONFIG += create_pc create_prl
 QMAKE_PKGCONFIG_DESTDIR = pkgconfig
 QMAKE_PKGCONFIG_INCDIR = $$headers.path
 
-qtconfig.path = $$[QT_INSTALL_PREFIX]/share/qt4/mkspecs/features
+qtconfig.path = $$[QT_INSTALL_ARCHDATA]/mkspecs/features
 qtconfig.files = ofono-qt.prf
 
 INSTALLS += target headers qtconfig
