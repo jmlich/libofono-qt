@@ -16,4 +16,4 @@ dox.clean = doxygen.cfg
 INSTALLS += dox
 
 QMAKE_EXTRA_TARGETS += dox
-
+QMAKE_DISTNAME = ofono-qt-$$VERSION
