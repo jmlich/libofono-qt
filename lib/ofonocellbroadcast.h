@@ -62,15 +62,15 @@ public:
 
     QString errorName() const;
     QString errorMessage() const;
-signals:
+Q_SIGNALS:
     void powerChanged(bool);
     void topicsChanged(const QString &);
     void incomingBroadcast(const QString &, quint16);
     void emergencyBroadcast(const QString &, const QVariantMap &);
 
-public slots:
+public Q_SLOTS:
 
-private slots:
+private Q_SLOTS:
     void propertyChanged(const QString& property, const QVariant& value);
     void inBroadcast(const QString &message, quint16 channel);
     void emBroadcast(const QString &message, const QVariantMap &properties);
