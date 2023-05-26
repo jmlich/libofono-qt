@@ -121,7 +121,7 @@ void OfonoCallBarring::requestVoiceIncoming()
 
 void OfonoCallBarring::setVoiceIncoming(const QString &barrings, const QString &password)
 {
-    m_if->setProperty("VoiceIncoming", qVariantFromValue(barrings), password);
+    m_if->setProperty("VoiceIncoming", QVariant::fromValue(barrings), password);
 }
 
 void OfonoCallBarring::requestVoiceOutgoing()
@@ -131,7 +131,7 @@ void OfonoCallBarring::requestVoiceOutgoing()
 
 void OfonoCallBarring::setVoiceOutgoing(const QString &barrings, const QString &password)
 {
-    m_if->setProperty("VoiceOutgoing", qVariantFromValue(barrings), password);
+    m_if->setProperty("VoiceOutgoing", QVariant::fromValue(barrings), password);
 }
 
 void OfonoCallBarring::propertyChanged(const QString& property, const QVariant& value)

@@ -248,7 +248,7 @@ void OfonoVoiceCallManager::privateChat(const QString &call)
                                              "PrivateChat");
 
     QList<QVariant>arg;
-    arg.append(qVariantFromValue(QDBusObjectPath(call)));
+    arg.append(QVariant::fromValue(QDBusObjectPath(call)));
     request.setArguments(arg);
     QDBusConnection::systemBus().callWithCallback(request, this,
                                         SLOT(privateChatResp(const QList<QDBusObjectPath>&)),

@@ -188,7 +188,7 @@ void OfonoConnMan::removeContext(const QString& contextpath)
 
     QList<QVariant> argumentList;
     QDBusObjectPath context (contextpath);
-    argumentList << qVariantFromValue(context);
+    argumentList << QVariant::fromValue(context);
     request.setArguments(argumentList);
     QDBusConnection::systemBus().callWithCallback(request, this,
                                         SLOT(removeContextResp()),

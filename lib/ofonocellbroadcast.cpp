@@ -81,7 +81,7 @@ bool OfonoCellBroadcast::powered() const
 
 void OfonoCellBroadcast::setPowered(bool b)
 {
-    m_if->setProperty("Powered",qVariantFromValue(b));
+    m_if->setProperty("Powered",QVariant::fromValue(b));
 }
 
 /*
@@ -95,7 +95,7 @@ QString OfonoCellBroadcast::topics() const
 
 void OfonoCellBroadcast::setTopics(const QString &list) const
 {
-    m_if->setProperty("Topics",qVariantFromValue(list));
+    m_if->setProperty("Topics",QVariant::fromValue(list));
 }
 
 QString OfonoCellBroadcast::errorName() const

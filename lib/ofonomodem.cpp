@@ -158,7 +158,7 @@ bool OfonoModem::powered() const
 
 void OfonoModem::setPowered(bool powered)
 {
-    m_if->setProperty("Powered", qVariantFromValue(powered));
+    m_if->setProperty("Powered", QVariant::fromValue(powered));
 }
 
 bool OfonoModem::online() const
@@ -168,7 +168,7 @@ bool OfonoModem::online() const
 
 void OfonoModem::setOnline(bool online)
 {
-    m_if->setProperty("Online", qVariantFromValue(online));
+    m_if->setProperty("Online", QVariant::fromValue(online));
 }
 
 bool OfonoModem::lockdown() const
@@ -178,7 +178,7 @@ bool OfonoModem::lockdown() const
 
 void OfonoModem::setLockdown(bool lockdown)
 {
-    m_if->setProperty("Lockdown", qVariantFromValue(lockdown));
+    m_if->setProperty("Lockdown", QVariant::fromValue(lockdown));
 }
 
 bool OfonoModem::emergency() const

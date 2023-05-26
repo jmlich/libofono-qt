@@ -149,7 +149,7 @@ void OfonoMessageManager::requestServiceCenterAddress()
 
 void OfonoMessageManager::setServiceCenterAddress(QString address)
 {
-    m_if->setProperty("ServiceCenterAddress", qVariantFromValue(address));
+    m_if->setProperty("ServiceCenterAddress", QVariant::fromValue(address));
 }
 
 void OfonoMessageManager::requestUseDeliveryReports()
@@ -159,7 +159,7 @@ void OfonoMessageManager::requestUseDeliveryReports()
 
 void OfonoMessageManager::setUseDeliveryReports(bool useDeliveryReports)
 {
-    m_if->setProperty("UseDeliveryReports", qVariantFromValue(useDeliveryReports));
+    m_if->setProperty("UseDeliveryReports", QVariant::fromValue(useDeliveryReports));
 }
 
 void OfonoMessageManager::requestBearer()
@@ -169,7 +169,7 @@ void OfonoMessageManager::requestBearer()
 
 void OfonoMessageManager::setBearer(QString bearer)
 {
-    m_if->setProperty("Bearer", qVariantFromValue(bearer));
+    m_if->setProperty("Bearer", QVariant::fromValue(bearer));
 }
 
 void OfonoMessageManager::requestAlphabet()
@@ -179,7 +179,7 @@ void OfonoMessageManager::requestAlphabet()
 
 void OfonoMessageManager::setAlphabet(QString alphabet)
 {
-    m_if->setProperty("Alphabet", qVariantFromValue(alphabet));
+    m_if->setProperty("Alphabet", QVariant::fromValue(alphabet));
 }
 
 

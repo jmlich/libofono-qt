@@ -46,7 +46,7 @@ QString OfonoRadioSettings::technologyPreference() const
 
 void OfonoRadioSettings::setTechnologyPreference(QString preference)
 {
-    m_if->setProperty("TechnologyPreference", qVariantFromValue(preference));
+    m_if->setProperty("TechnologyPreference", QVariant::fromValue(preference));
 }
 
 QString OfonoRadioSettings::gsmBand() const
@@ -56,7 +56,7 @@ QString OfonoRadioSettings::gsmBand() const
 
 void OfonoRadioSettings::setGsmBand(QString gsmBand)
 {
-    m_if->setProperty("GsmBand", qVariantFromValue(gsmBand));
+    m_if->setProperty("GsmBand", QVariant::fromValue(gsmBand));
 }
 
 QString OfonoRadioSettings::umtsBand() const
@@ -66,7 +66,7 @@ QString OfonoRadioSettings::umtsBand() const
 
 void OfonoRadioSettings::setUmtsBand(QString umtsBand)
 {
-    m_if->setProperty("UmtsBand", qVariantFromValue(umtsBand));
+    m_if->setProperty("UmtsBand", QVariant::fromValue(umtsBand));
 }
 
 bool OfonoRadioSettings::fastDormancy() const
@@ -76,7 +76,7 @@ bool OfonoRadioSettings::fastDormancy() const
 
 void OfonoRadioSettings::setFastDormancy(bool fastDormancy)
 {
-    m_if->setProperty("FastDormancy", qVariantFromValue(fastDormancy));
+    m_if->setProperty("FastDormancy", QVariant::fromValue(fastDormancy));
 }
 
 void OfonoRadioSettings::setPropertyFailed(const QString& property)

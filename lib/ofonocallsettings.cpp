@@ -84,12 +84,12 @@ void OfonoCallSettings::requestVoiceCallWaiting()
 
 void OfonoCallSettings::setHideCallerId(const QString &preference)
 {
-    return m_if->setProperty("HideCallerId", qVariantFromValue(preference));
+    return m_if->setProperty("HideCallerId", QVariant::fromValue(preference));
 }
 
 void OfonoCallSettings::setVoiceCallWaiting(const QString &preference)
 {
-    return m_if->setProperty("VoiceCallWaiting", qVariantFromValue(preference));
+    return m_if->setProperty("VoiceCallWaiting", QVariant::fromValue(preference));
 }
 
 void OfonoCallSettings::requestPropertyComplete(bool success, const QString& property, const QVariant& value)

@@ -86,10 +86,10 @@ void OfonoCallVolume::setPropertyFailed(const QString &property)
 
 void OfonoCallVolume::setSpeakerVolume(const quint8 &spvolume)
 {
-    m_if->setProperty("SpeakerVolume",qVariantFromValue(spvolume));
+    m_if->setProperty("SpeakerVolume",QVariant::fromValue(spvolume));
 }
 
 void OfonoCallVolume::setMicrophoneVolume(const quint8 &mpvolume)
 {
-    m_if->setProperty("MicrophoneVolume",qVariantFromValue(mpvolume));
+    m_if->setProperty("MicrophoneVolume",QVariant::fromValue(mpvolume));
 }

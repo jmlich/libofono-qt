@@ -59,7 +59,7 @@ QString OfonoMessageWaiting::voicemailMailboxNumber() const
 
 void OfonoMessageWaiting::setVoicemailMailboxNumber(QString mailboxnumber)
 {
-    m_if->setProperty("VoicemailMailboxNumber", qVariantFromValue(mailboxnumber));
+    m_if->setProperty("VoicemailMailboxNumber", QVariant::fromValue(mailboxnumber));
 }
 
 void OfonoMessageWaiting::setPropertyFailed(const QString& property)

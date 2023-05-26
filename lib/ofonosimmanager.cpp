@@ -120,7 +120,7 @@ void OfonoSimManager::getIcon(quint8 id)
     request = QDBusMessage::createMethodCall("org.ofono",
 					     path(), m_if->ifname(),
 					     "GetIcon");
-    request << qVariantFromValue(id);
+    request << QVariant::fromValue(id);
 
     QDBusConnection::systemBus().callWithCallback(request, this,
 					SLOT(getIconResp(QByteArray)),
@@ -129,7 +129,7 @@ void OfonoSimManager::getIcon(quint8 id)
 
 void OfonoSimManager::setSubscriberNumbers(const QStringList &numbers)
 {
-    m_if->setProperty("SubscriberNumbers", qVariantFromValue(numbers));
+    m_if->setProperty("SubscriberNumbers", QVariant::fromValue(numbers));
 }
 
 bool OfonoSimManager::present() const

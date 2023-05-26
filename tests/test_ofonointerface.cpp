@@ -39,11 +39,11 @@ private slots:
 	oi = new OfonoInterface("/phonesim", "org.ofono.Modem", OfonoGetAllOnStartup, this);
 
         if (oi->properties()["Powered"].toBool() == false) {
-            oi->setProperty("Powered", qVariantFromValue(true));
+            oi->setProperty("Powered", QVariant::fromValue(true));
             QTest::qWait(5000);
         }
         if (oi->properties()["Online"].toBool() == false) {
-            oi->setProperty("Online", qVariantFromValue(true));
+            oi->setProperty("Online", QVariant::fromValue(true));
             QTest::qWait(5000);
         }
     }
@@ -100,7 +100,7 @@ private slots:
         bool online_found;
         int lastSignalCount = -1;
     
-        oi->setProperty("Online", qVariantFromValue(false));
+        oi->setProperty("Online", QVariant::fromValue(false));
         while (spy_failed.count() == 0 && spy_changed.count() != lastSignalCount) {
             lastSignalCount = spy_changed.count();
             QTest::qWait(1000);
@@ -118,7 +118,7 @@ private slots:
         QCOMPARE(online_found, true);
         QCOMPARE(online, false);
 
-        oi->setProperty("Online", qVariantFromValue(true));
+        oi->setProperty("Online", QVariant::fromValue(true));
 
         lastSignalCount = -1;
         while (spy_failed.count() == 0 && spy_changed.count() != lastSignalCount) {
@@ -148,7 +148,7 @@ private slots:
         QSignalSpy spy_failed(oi, SIGNAL(setPropertyFailed(const QString &)));
         QVariantList list;
     
-        oi->setProperty("Manufacturer", qVariantFromValue(QString("Nokia")));
+        oi->setProperty("Manufacturer", QVariant::fromValue(QString("Nokia")));
         while (spy_changed.count() == 0 && spy_failed.count() == 0) {
             QTest::qWait(100);
         }

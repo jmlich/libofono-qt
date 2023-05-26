@@ -65,7 +65,7 @@ void OfonoCallForwarding::requestVoiceUnconditional()
 
 void OfonoCallForwarding::setVoiceUnconditional(const QString &property)
 {
-    m_if->setProperty("VoiceUnconditional", qVariantFromValue(property));
+    m_if->setProperty("VoiceUnconditional", QVariant::fromValue(property));
 }
 
 void OfonoCallForwarding::requestVoiceBusy()
@@ -75,7 +75,7 @@ void OfonoCallForwarding::requestVoiceBusy()
 
 void OfonoCallForwarding::setVoiceBusy(const QString &property)
 {
-    return m_if->setProperty("VoiceBusy", qVariantFromValue(property));
+    return m_if->setProperty("VoiceBusy", QVariant::fromValue(property));
 }
 
 void OfonoCallForwarding::requestVoiceNoReply()
@@ -85,7 +85,7 @@ void OfonoCallForwarding::requestVoiceNoReply()
 
 void OfonoCallForwarding::setVoiceNoReply(const QString &property)
 {
-    return m_if->setProperty("VoiceNoReply", qVariantFromValue(property));
+    return m_if->setProperty("VoiceNoReply", QVariant::fromValue(property));
 }
 
 void OfonoCallForwarding::requestVoiceNoReplyTimeout()
@@ -95,7 +95,7 @@ void OfonoCallForwarding::requestVoiceNoReplyTimeout()
 
 void OfonoCallForwarding::setVoiceNoReplyTimeout(ushort timeout)
 {
-    return m_if->setProperty("VoiceNoReplyTimeout", qVariantFromValue(timeout));
+    return m_if->setProperty("VoiceNoReplyTimeout", QVariant::fromValue(timeout));
 }
 
 void OfonoCallForwarding::requestVoiceNotReachable()
@@ -105,7 +105,7 @@ void OfonoCallForwarding::requestVoiceNotReachable()
 
 void OfonoCallForwarding::setVoiceNotReachable(const QString &property)
 {
-    return m_if->setProperty("VoiceNotReachable", qVariantFromValue(property));
+    return m_if->setProperty("VoiceNotReachable", QVariant::fromValue(property));
 }
 
 void OfonoCallForwarding::requestForwardingFlagOnSim()
