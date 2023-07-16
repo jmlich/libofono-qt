@@ -60,7 +60,7 @@ public:
     ~OfonoNetworkOperator();
 
     OfonoNetworkOperator operator=(const OfonoNetworkOperator &op);
-    bool operator==(const OfonoNetworkOperator &op);
+    bool operator==(const OfonoNetworkOperator &op) const;
 
     //! Returns the D-Bus object path of the network operator object
     QString path() const;

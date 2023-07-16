@@ -45,7 +45,7 @@ OfonoNetworkOperator::OfonoNetworkOperator(const OfonoNetworkOperator& op)
             this, SLOT(propertyChanged(const QString&, const QVariant&)));
 }    
     
-bool OfonoNetworkOperator::operator==(const OfonoNetworkOperator &op)
+bool OfonoNetworkOperator::operator==(const OfonoNetworkOperator &op) const
 {
     return path() == op.path();
 }
