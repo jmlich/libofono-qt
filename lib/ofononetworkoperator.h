@@ -42,6 +42,7 @@ class OfonoInterface;
 class OFONO_QT_EXPORT OfonoNetworkOperator : public QObject
 {
     Q_OBJECT
+    Q_DISABLE_COPY(OfonoNetworkOperator)
 
     Q_PROPERTY(QString path READ path)
     Q_PROPERTY(QString errorName READ errorName)
@@ -56,15 +57,13 @@ class OFONO_QT_EXPORT OfonoNetworkOperator : public QObject
     
 public:
     OfonoNetworkOperator(const QString& operatorId, QObject *parent=0);
-    OfonoNetworkOperator(const OfonoNetworkOperator& op);
     ~OfonoNetworkOperator();
 
-    OfonoNetworkOperator operator=(const OfonoNetworkOperator &op);
     bool operator==(const OfonoNetworkOperator &op) const;
 
     //! Returns the D-Bus object path of the network operator object
     QString path() const;
-    
+
     //! Get the D-Bus error name of the last operation.
     /*!
      * Returns the D-Bus error name of the last operation (setting a property

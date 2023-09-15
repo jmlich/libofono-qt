@@ -62,50 +62,51 @@ private slots:
     	QStringList opIdList = scanList.at(1).toStringList();
     	QVERIFY(opIdList.count() > 0);
 
-	QList<OfonoNetworkOperator> opList;
+	QList<OfonoNetworkOperator*> opList;
 	foreach(QString opId, opIdList)
 	{
-	    opList << OfonoNetworkOperator(opId);
+	    opList << new OfonoNetworkOperator(opId);
 	}
 
 	int op1 = -1;
 	int op2 = -1;
-	foreach(OfonoNetworkOperator op, opList) {
-	    if (op1 == -1 && op.status() == "current")
+	foreach(OfonoNetworkOperator* op, opList) {
+	    if (op1 == -1 && op->status() == "current")
 	        op1 = opList.indexOf(op);
-	    if (op2 == -1 && op.status() == "available")
+	    if (op2 == -1 && op->status() == "available")
 	        op2 = opList.indexOf(op);
 	}
+
 	QVERIFY(op1 != -1);
 	QVERIFY(op2 != -1);
-	QVERIFY(opList[op1].name().length() > 0);
-	QVERIFY(opList[op2].name().length() > 0);		
-	QVERIFY(opList[op1].mcc().length() > 0);
-	QVERIFY(opList[op2].mcc().length() > 0);		
-	QVERIFY(opList[op1].mnc().length() > 0);
-	QVERIFY(opList[op2].mnc().length() > 0);		
-	QVERIFY(opList[op1].technologies().count() > 0);
-	QVERIFY(opList[op2].technologies().count() > 0);		
+	QVERIFY(opList[op1]->name().length() > 0);
+	QVERIFY(opList[op2]->name().length() > 0);
+	QVERIFY(opList[op1]->mcc().length() > 0);
+	QVERIFY(opList[op2]->mcc().length() > 0);
+	QVERIFY(opList[op1]->mnc().length() > 0);
+	QVERIFY(opList[op2]->mnc().length() > 0);
+	QVERIFY(opList[op1]->technologies().count() > 0);
+	QVERIFY(opList[op2]->technologies().count() > 0);
 
-	QSignalSpy op1Register(&opList[op1], SIGNAL(registerComplete(bool)));
-	QSignalSpy op2Register(&opList[op2], SIGNAL(registerComplete(bool)));
-	QSignalSpy op1Status(&opList[op1], SIGNAL(statusChanged(QString)));
-	QSignalSpy op2Status(&opList[op2], SIGNAL(statusChanged(QString)));
+	QSignalSpy op1Register(opList[op1], SIGNAL(registerComplete(bool)));
+	QSignalSpy op2Register(opList[op2], SIGNAL(registerComplete(bool)));
+	QSignalSpy op1Status(opList[op1], SIGNAL(statusChanged(QString)));
+	QSignalSpy op2Status(opList[op2], SIGNAL(statusChanged(QString)));
 
 	QSignalSpy mode(m, SIGNAL(modeChanged(QString)));
-	QSignalSpy status(m, SIGNAL(statusChanged(QString)));	
-	QSignalSpy lac(m, SIGNAL(locationAreaCodeChanged(uint)));	
-	QSignalSpy cellId(m, SIGNAL(cellIdChanged(uint)));	
-	QSignalSpy mcc(m, SIGNAL(mccChanged(QString)));	
-	QSignalSpy mnc(m, SIGNAL(mncChanged(QString)));	
-	QSignalSpy tech(m, SIGNAL(technologyChanged(QString)));	
-	QSignalSpy name(m, SIGNAL(nameChanged(QString)));	
-	QSignalSpy strength(m, SIGNAL(strengthChanged(uint)));	
-	QSignalSpy base(m, SIGNAL(baseStationChanged(QString)));	
+	QSignalSpy status(m, SIGNAL(statusChanged(QString)));
+	QSignalSpy lac(m, SIGNAL(locationAreaCodeChanged(uint)));
+	QSignalSpy cellId(m, SIGNAL(cellIdChanged(uint)));
+	QSignalSpy mcc(m, SIGNAL(mccChanged(QString)));
+	QSignalSpy mnc(m, SIGNAL(mncChanged(QString)));
+	QSignalSpy tech(m, SIGNAL(technologyChanged(QString)));
+	QSignalSpy name(m, SIGNAL(nameChanged(QString)));
+	QSignalSpy strength(m, SIGNAL(strengthChanged(uint)));
+	QSignalSpy base(m, SIGNAL(baseStationChanged(QString)));
 	
-	opList[op2].registerOp();
+	opList[op2]->registerOp();
 	QTest::qWait(5000);
-	opList[op1].registerOp();
+	opList[op1]->registerOp();
 	QTest::qWait(5000);
 	
 	QCOMPARE(op1Register.count(), 1);
@@ -122,6 +123,11 @@ private slots:
 	QCOMPARE(mcc.count(), 2);
 	QCOMPARE(mnc.count(), 2);
 	QCOMPARE(name.count(), 2);
+
+	foreach (OfonoNetworkOperator* op, opList) {
+	    delete op;
+	}
+	opList.clear();
     }
 
 
